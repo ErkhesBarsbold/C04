@@ -48,7 +48,7 @@ int	ft_atoi(char *str)
 /*
 int	main(void)
 {
-	char	a[] = "   --+++--++-----21478fes123";
+	char	a[] = "  	 --+++--++----2147483647fes123";
 	ft_atoi(a);
 	printf("%d",ft_atoi(a));	
 }

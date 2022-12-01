@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include<unistd.h>
-#include<stdio.h>
+/*#include<stdio.h>*/
 
 int	ft_convert(long *nbrl)
 {
@@ -85,6 +85,6 @@ void	ft_putnbr_base(int nbr, char *base)
 int	main(void)
 {
 	char	a[] = "0123456789ABCDEF";
-	ft_putnbr_base(1600, a);
+	ft_putnbr_base(2147483646, a);
 }
 */

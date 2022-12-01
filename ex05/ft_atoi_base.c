@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<stdio.h>
+/*#include<stdio.h>*/
 
 int	ft_find_pos(char ch, char *base)
 {
@@ -111,7 +111,7 @@ int	ft_atoi_base(char *str, char *base)
 int	main(void)
 {
         char    base[] = "0123456789abcdef";
-	char	str[] = "    	  ----+++--234bcdef";
+	char	str[] = "    	  ---+++-8000000";
 	printf("%d",ft_atoi_base(str, base));
 }
 */
