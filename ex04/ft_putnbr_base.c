@@ -11,15 +11,14 @@
 /* ************************************************************************** */
 
 #include<unistd.h>
+#include<stdio.h>
 
-int	ft_check_pos(int *nbr)
+int	ft_convert(long *nbrl)
 {
-	if (*nbr == -2147483648)
-		return (0);
-	if (*nbr < 0)
+	if (*nbrl < 0)
 	{
-		*nbr = -*nbr;
-		printf("-");
+		*nbrl = -*nbrl;
+		write (1, "-", 1);
 	}
 	return (1);
 }
@@ -58,23 +57,26 @@ int	ft_strlen(char *str)
 
 void	ft_putnbr_base(int nbr, char *base)
 {
-	int	l;
-	int	mod;
-	int	div;
-	int	i;
+	long	l;
+	long	mod;
+	long	div;
+	long	i;
+	long	nbrl;
 
+	nbrl = nbr;
 	l = ft_strlen(base);
-	if (l > 1 && ft_check(base) && ft_check_pos(&nbr))
+	if (l > 1 && ft_check(base))
 	{
+		ft_convert(&nbrl);
 		i = 0;
-		div = nbr / l;
-		mod = nbr % l;
+		div = nbrl / l;
+		mod = nbrl % l;
 		if (div > 0)
 			ft_putnbr_base(div, base);
 		while (i < l)
 		{
 			if (mod == i)
-				printf("%c", base[i]);
+				write(1, &base[i], 1);
 			i++;
 		}
 	}
@@ -82,7 +84,7 @@ void	ft_putnbr_base(int nbr, char *base)
 /*
 int	main(void)
 {
-	char 	a[] = "0123456789abcdef";
-	ft_putnbr_base(-2147483647, a);
+	char	a[] = "0123456789ABCDEF";
+	ft_putnbr_base(1600, a);
 }
 */

@@ -10,37 +10,45 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include<unistd.h>
+/*#include<stdio.h>*/
+
+int	ft_whitespace(char *str, int *n)
+{
+	int	i;
+
+	*n = 1;
+	i = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	while (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			*n *= -1;
+		i++;
+	}
+	return (i);
+}
 
 int	ft_atoi(char *str)
 {
 	int	i;
 	int	k;
-	int	x;
-	int	y;
+	int	n;
 
-	x = 0;
-	y = -1;
-	i = 0;
 	k = 0;
-	while (str[i] != '\0')
+	i = ft_whitespace(str, &n);
+	while (str[i] != '\0' && str[i] >= '0' && str[i] <= '9')
 	{
-		if (str[i] == '-')
-			x++;
-		if (y == -1 && str[i] >= '0' && str[i] <= '9')
-			k = k * 10 - 48 + str[i];
-		if (k != 0 && (str[i] < '0' || str[i] > '9'))
-			y = 1;
+		k = k * 10 - 48 + str[i];
 		i++;
 	}
-	if (x % 2 == 1)
-		k = -k;
+	k *= n;
 	return (k);
 }
 /*
 int	main(void)
 {
-	char	a[] = "        ---+++++++=2147483648fes123";
+	char	a[] = "   --+++--++-----21478fes123";
 	ft_atoi(a);
 	printf("%d",ft_atoi(a));	
 }

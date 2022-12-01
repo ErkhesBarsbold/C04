@@ -10,66 +10,108 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-int     ft_check(char *str)
-{
-        int     i;
-        int     j;
+#include<stdio.h>
 
-        i = 0;
-        while (str[i] != '\0')
-        {
-                j = i + 1;
-                if (str[i] == '+' || str[i] == '-')
-                        return (0);
-                while (str[j] != '\0')
-                {
-                        if (str[i] == str[j])
-                                return (0);
-                        j++;
-                }
-                i++;
-        }
-        return (1);
+int	ft_find_pos(char ch, char *base)
+{
+	int	i;
+
+	i = 0;
+	while (base[i] != 0)
+	{
+		if (base[i] == ch)
+			return (i);
+		i++;
+	}
+	return (-1);
 }
 
-int     ft_strlen(char *str)
+int	ft_check(char *str)
 {
-        int     n;
+	int	i;
+	int	j;
 
-        n = 0;
-        while (str[n] != 0)
-                n++;
-        return (n);
+	i = 0;
+	while (str[i] != '\0')
+	{
+		j = i + 1;
+		if (str[i] == '+' || str[i] == '-')
+			return (0);
+		while (str[j] != '\0')
+		{
+			if (str[i] == str[j])
+				return (0);
+			j++;
+		}
+		i++;
+	}
+	return (i);
 }
 
-void    ft_putnbr_base(int nbr, char *base)
+int	ft_convert(int n, int x, int y)
 {
-        int     l;
-        int     mod;
-        int     div;
-        int     i;
+	int	i;
+	int	s;
 
-        l = ft_strlen(base);
-        if (l > 1 && ft_check(base) && ft_check_pos(&nbr))
-        {
-                i = 0;
-                div = nbr / l;
-                mod = nbr % l;
-                if (div > 0)
-                        ft_putnbr_base(div, base);
-                while (i < l)
-                {
-                        if (mod == i)
-                                printf("%c", base[i]);
-                        i++;
-                }
-        }
+	i = 0;
+	s = 1;
+	while (i < y)
+	{
+		s = s * x;
+		i++;
+	}
+	s *= n;
+	return (s);
+}
+
+int	ft_whitespace(char *str, int *n)
+{
+	int	i;
+
+	*n = 1;
+	i = 0;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	while (str[i] == '+' || str[i] == '-')
+	{
+		if (str[i] == '-')
+			*n *= -1;
+		i++;
+	}
+	return (i);
+}
+
+int	ft_atoi_base(char *str, char *base)
+{
+	int	i;
+	int	s;
+	int	k;
+	int	n;
+	int	pos;
+
+	if (ft_check(base) > 1)
+	{
+		s = 0;
+		i = ft_whitespace(str, &n);
+		k = i;
+		while (ft_find_pos(str[i], base) != -1)
+			i++;
+		while (k < i)
+		{
+			pos = ft_find_pos(str[k], base);
+			s += ft_convert(pos, ft_check(base), i - k - 1);
+			k++;
+		}
+		s *= n;
+		return (s);
+	}
+	return (0);
 }
 /*
-int     main(void)
+int	main(void)
 {
-        char    a[] = "0123456789abcdef";
-        ft_putnbr_base(-2147483647, a);
+        char    base[] = "0123456789abcdef";
+	char	str[] = "    	  ----+++--234bcdef";
+	printf("%d",ft_atoi_base(str, base));
 }
 */
-
